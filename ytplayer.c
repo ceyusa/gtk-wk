@@ -1,6 +1,8 @@
 #include <gtk/gtk.h>
 #include <webkit2/webkit2.h>
 
+#include <string.h>
+
 GtkWidget *main_window, *web_view;
 
 static void
@@ -23,13 +25,30 @@ create ()
 	gtk_widget_show_all (main_window);
 }
 
+static void
+replace (gchar **str, const char *videoid)
+{
+	char *pos = strstr (*str, "{{video-id}}");
+	if (!pos)
+		return;
+
+	gsize len = strlen (*str) - strlen ("{{video-id}}") + strlen (videoid) + 1;
+	gchar* tmp = g_new (gchar, len);
+
+	strncpy (tmp, *str, pos - *str);
+	strcat (tmp + (pos - *str), videoid);
+	strcat (tmp, pos + strlen("{{video-id}}"));
+	g_free (*str);
+	*str = tmp;
+}
+
 static char *
 read_html ()
 {
 	GFile *file;
 	GFileInputStream *fstrm;
 	GDataInputStream *dstrm;
-	char *data = NULL;
+	gchar *data = NULL;
 	GError *err = NULL;
 
 	file = g_file_new_for_uri ("resource:///org/wkgtk/ytplayer/yt-embed.html");
@@ -52,7 +71,7 @@ read_html ()
 		goto bail;
 	}
 
-	/* TODO: template handling */
+	replace (&data, "M7lc1UVf-VE");
 
 bail:
 	g_object_unref (dstrm);
