@@ -12,7 +12,7 @@ create ()
 	gtk_window_set_default_size (GTK_WINDOW (main_window), 854, 480);
 	gtk_window_set_title (GTK_WINDOW (main_window), "YouTube Player");
 
-	g_signal_connect(main_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	g_signal_connect(main_window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
 	web_view = webkit_web_view_new ();
 	gtk_container_add (GTK_CONTAINER (main_window), web_view);
