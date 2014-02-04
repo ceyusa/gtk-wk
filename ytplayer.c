@@ -32,7 +32,7 @@ read_html ()
 	char *data = NULL;
 	GError *err = NULL;
 
-	file = g_file_new_for_path ("./yt-embed.html");
+	file = g_file_new_for_uri ("resource:///org/wkgtk/ytplayer/yt-embed.html");
 	fstrm = g_file_read (file, NULL, &err);
 	if (!fstrm) {
 		g_printerr ("Failed opening file: %s\n", err->message);
