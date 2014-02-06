@@ -39,7 +39,7 @@ create ()
 {
 	main_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW (main_window), 640, 320);
-	gtk_window_set_title (GTK_WINDOW (main_window), "YouTube Player");
+	gtk_window_set_title (GTK_WINDOW (main_window), "Facebook");
 
 	g_signal_connect(main_window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
