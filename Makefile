@@ -22,6 +22,12 @@ khanacademy: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
 khanacademy: LIBS := $(LIBS) $(DEPS_LIBS)
 binaries += khanacademy
 
+wkversion: wkversion.o
+wkversion: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
+wkversion: LIBS := $(LIBS) $(DEPS_LIBS)
+binaries += wkversion
+
+
 all: $(binaries)
 
 $(binaries):
