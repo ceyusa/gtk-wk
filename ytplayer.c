@@ -4,6 +4,7 @@
 #include <string.h>
 
 GtkWidget *main_window, *web_view;
+char *vidid;
 
 static void
 create ()
@@ -71,7 +72,7 @@ read_html ()
 		goto bail;
 	}
 
-	replace (&data, "M7lc1UVf-VE");
+	replace (&data, vidid);
 
 bail:
 	g_object_unref (dstrm);
@@ -98,6 +99,12 @@ main(int argc, char **argv)
 {
 	gtk_init (&argc, &argv);
 	create ();
+
+	if (argc >= 2)
+		vidid = argv[1];
+	if (!vidid)
+		vidid = "M7lc1UVf-VE";
+
 	g_idle_add (load, NULL);
 	gtk_main ();
 
