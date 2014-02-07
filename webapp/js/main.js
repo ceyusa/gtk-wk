@@ -99,7 +99,6 @@ Endless.app = Endless.app || {};
 					$main_discipline_clicked.removeClass("not-clicked");
 					indexCurrentColumnClicked = $main_discipline_clicked.data("index");
 					indexCurrentSubcategoryClicked = $(this).data("subcategory");
-					reloadData();
 					var data = dataJson[indexCurrentColumnClicked].subcategories[indexCurrentSubcategoryClicked];
 
 					$main_disciplines.addClass("open-animation");
@@ -340,19 +339,6 @@ Endless.app = Endless.app || {};
 			},
 
 			/*
-			 * @desc call fetch engine to check if exists or generate new data (synchronous), get from localStorage and then save this on module's domain.
-			 */
-			loadData = function () {
-				// moduleApi.init();
-				// Endless.app.data = jQuery.parseJSON(localStorage['KhanAcademyPlaylists.' + Localization.Dictionary.lang]);
-				// dataJson = Endless.app.data;
-			},
-			reloadData = function () {
-				// Endless.app.data = jQuery.parseJSON(localStorage['KhanAcademyPlaylists.' + Localization.Dictionary.lang]);
-				// dataJson = Endless.app.data;
-			},
-
-			/*
 			 * @desc build columns using data provided by api (khan academy)
 			 */
 			buildColumns = function (data, q) {
@@ -492,7 +478,6 @@ Endless.app = Endless.app || {};
 				closeSubcategories();
 				$main_disciplines.empty();
 
-				reloadData();
 				buildColumns(dataJson, q);
 			},
 
@@ -559,7 +544,6 @@ Endless.app = Endless.app || {};
 			 */
 			resetSearch = function () {
 				if (!(elementFocusOut)) {
-					reloadData();
 					query = "";
 					total_videos_playlist = 0;
 					closeSubcategories();
