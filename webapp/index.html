@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Khan Academy</title>
+		<link href="css/screen.css" rel="stylesheet">
+		<script id='discipline-template' type='text/x-handlebars-template'>
+			<section data-index="{{parentIndex}}" class="discipline {{ machine_name }} link-list-open">
+				<header>
+					<h3>{{ subject_label }} </h3>
+				</header>
+				<div class="bg-box-list-content">
+					<section class="list-content">
+						<div class="box-progress-bar">
+							<div class="result-videos"><span class="watched_videos">{{total_watched_videos}}</span> / <span class="total_videos">{{ total_videos_caption }}</span></div>
+							<div class="progress-bar">
+								<span data-total-videos="{{ total_videos }}" style="width: {{percentage_watched_videos}}%"></span>
+							</div>
+						</div>
+						<ul class="list-videos-youtube">
+							{{#playlist}}
+								{{> line}}
+							{{/playlist}}
+						</ul> 
+					</section>
+				</div>
+			</section>
+		</script>
+		<script id='line-partial' type='text/x-handlebars-template'>
+			<li data-id-video="{{ vid }}" data-title-video="{{cleaned_title title }}" class="list-videos-youtube-item {{ status_class status}}">
+				<a href="#">{{cleaned_title title}}</a>
+				<div class="item-background"></div>
+			</li>
+		</script>
+		<script id='discipline-template-with-subcat' type='text/x-handlebars-template'>
+			<section data-index="{{parentIndex}}" class="discipline with-sublist {{machine_name}} link-list-open">
+				<header>
+					<h3>{{ subject_label }}</h3>
+				</header>
+				<div class="bg-box-list-content">
+					<section class="list-content">
+						<div class="box-progress-bar">
+							<div class="result-videos"><span class="watched_videos">{{total_watched_videos}}</span> / <span class="total_videos">{{ total_videos_playlist }}</span></div>
+							<div class="progress-bar">
+								<span data-total-videos="{{ total_videos }}" style="width: {{percentage_watched_videos}}%"></span>
+							</div>
+						</div>
+						<ul>
+							{{#playlist}}
+								{{> line-subcat}}
+							{{/playlist}}
+						</ul> 
+					</section>
+				</div>
+				<section class="sublist-content">
+					
+				</section>
+			</section>
+		</script>
+		<script id='line-partial-with-subcat' type='text/x-handlebars-template'>
+			<li class="link-subcategories" data-title-playlist="{{ subject }}" data-subcategory="{{index}}" >
+				<span class="name-subcategory">{{subject}}</span>
+				<span class="qtd-subcategory">{{total_playlists playlist}} {{ t '_videos_label' 'true'}}</span>
+				<div class="item-background"></div>
+			</li>
+		</script>
+		<script id='sublist' type='text/x-handlebars-template'>
+			<header>
+				<h4>{{subject}}</h4>
+				<a href="#" class="btn-all-videos">{{ t '_play_all' 'true' }}</a>
+				<a href="#" class="close-subcategory">X</a>
+			</header>
+			<ul class="list-videos-youtube list-content">
+				{{#playlist}}
+				<li data-id-video="{{ vid }}" data-title-video="{{cleaned_title title}}" class="list-videos-youtube-item {{ status_class status}}">
+					<a href="#">{{cleaned_title title}}</a>
+					<div class="item-background"></div>
+				</li>
+				{{/playlist}}
+			</ul>
+		</script>
+	</head>
+	<body>
+		<div class="opacity" id="loading-wheel">
+			<div class="loading"></div>
+		</div>
+		<div class="open" id="main-wrapper">
+			<header id="header-top">
+				<section class="header-col header-col1">
+					<h1 class="logo hide-text">
+						<a href="http://www.fundacaolemann.org.br/khanportugues/" target="_blank">Khan Academy</a>
+					</h1>
+				</section>
+				<section class="header-col header-col2">
+					<div id="form-search">
+						<input class="input-search" placeholder="" type="text">
+						<button class="icon-search hide-text">Search</button>
+						<button class="close-search hide-text">Close</button>
+					</div>
+				</section>
+				<section class="header-col header-col3">
+					<p id="header-slogan"></p>
+				</section>
+			</header>
+			<div id="main-disciplines"></div>
+		</div>
+		<script src="js/libs/external/jquery.min.js"></script>
+		<script src="js/libs/external/underscore.min.js"></script>
+		<script src="js/libs/external/handlebars.min.js"></script>
+		<script src="js/libs/parafernalia/pf_lightbox.js"></script>
+		<script src="js/libs/parafernalia/dictionary.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>

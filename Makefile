@@ -17,6 +17,11 @@ facebook: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
 facebook: LIBS := $(LIBS) $(DEPS_LIBS)
 binaries += facebook
 
+khanacademy: khanacademy.o khanacademy-res.o
+khanacademy: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
+khanacademy: LIBS := $(LIBS) $(DEPS_LIBS)
+binaries += khanacademy
+
 all: $(binaries)
 
 $(binaries):
@@ -28,5 +33,8 @@ $(binaries):
 ytplayer-res.c: ytplayer.xml
 	glib-compile-resources --target=$@ --generate-source $<
 
+khanacademy-res.c: khanacademy.xml
+	glib-compile-resources --target=$@ --generate-source $<
+
 clean:
-	rm -rf *.o $(binaries) ytplayer-res.c
+	rm -rf *.o $(binaries) *-res.c
