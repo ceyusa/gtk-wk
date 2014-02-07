@@ -11,8 +11,7 @@ Endless.app = Endless.app || {};
 
 	Endless.app.Module = function () { // BOF PRIVATE SECTION
 
-		var offlineVideosPath = 'file:///var/endless/khanacademy/videos',
-			$main_disciplines = $("#main-disciplines"),
+		var $main_disciplines = $("#main-disciplines"),
 			$main_wrapper = $('#main-wrapper'),
 			$header_top = $("#header-top"),
 			$input_search = $(".input-search"),
@@ -236,11 +235,7 @@ Endless.app = Endless.app || {};
 				$(".lightbox-left-arrow").html("<div class='title-youtube prev'></div>");
 				$(".lightbox-right-arrow").html("<div class='title-youtube next'></div>");
 
-				if (window.is_offline) {
-					return '<div class="lightbox-youtube"><p>' + contentTitleVideo + '</p><video id="video-player" controls autoplay width="870" height="520"><source src="' + offlineVideosPath + '/' + contentIdVideo + '.mp4' + '" type="video/mp4"><track src="' + offlineVideosPath + '/' + contentIdVideo + '.vtt' + '" kind="subtitle" srclang="es-GT" label="Español" /></video></div>';
-				} else {
-					return '<div class="lightbox-youtube"><p>' + contentTitleVideo + '</p><iframe width="870" height="520" id="video-player" src="http://www.youtube.com/embed/' + contentIdVideo + '?autoplay=1" frameborder="0" allowfullscreen style="visibility:hidden;" onload="this.style.visibility=\'visible\';"></iframe></div>';
-				}
+				return '<div class="lightbox-youtube"><p>' + contentTitleVideo + '</p><iframe width="870" height="520" id="video-player" src="http://www.youtube.com/embed/' + contentIdVideo + '?autoplay=1" frameborder="0" allowfullscreen style="visibility:hidden;" onload="this.style.visibility=\'visible\';"></iframe></div>';
 			},
 
 			/*
@@ -832,13 +827,6 @@ Endless.app = Endless.app || {};
 }(window, document, jQuery));
 
 window.init_online = function(json) {
-	window.is_offline = false;
-	var module = new Endless.app.Module();
-	module.init(json);
-}
-
-window.init_offline = function(json) {
-	window.is_offline = true;
 	var module = new Endless.app.Module();
 	module.init(json);
 }
