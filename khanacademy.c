@@ -3,12 +3,14 @@
 
 #include <string.h>
 
-GtkWidget *main_window, *web_view;
+static GtkWidget *main_window, *web_view;
+static gboolean launched;
 
 static gboolean
 crashed (WebKitWebView *view, gpointer data)
 {
 	g_printerr ("The web view has crashed!\n");
+	launched = FALSE;
 	webkit_web_view_reload_bypass_cache (view);
 
 	return TRUE; /* don't propagate event */
@@ -69,8 +71,6 @@ bail:
 static void
 changed (WebKitWebView *view, WebKitLoadEvent event, gpointer data)
 {
-	static gboolean launched = FALSE;
-
 	g_print ("%d ", event);
 	if (!launched && event == WEBKIT_LOAD_FINISHED) {
 		launched = TRUE;
@@ -132,6 +132,7 @@ load (gpointer pointer)
 	g_free (file);
 
 	if (uri) {
+		launched = FALSE;
 		webkit_web_view_load_uri (WEBKIT_WEB_VIEW (web_view), uri);
 		g_free (uri);
 	} else {
