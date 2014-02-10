@@ -27,6 +27,10 @@ wkversion: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
 wkversion: LIBS := $(LIBS) $(DEPS_LIBS)
 binaries += wkversion
 
+minibrowser: mb/main.o mb/BrowserMarshal.o mb/BrowserCellRendererVariant.o mb/BrowserDownloadsBar.o mb/BrowserSettingsDialog.o mb/BrowserWindow.o
+minibrowser: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS) -DWEBKIT_INJECTED_BUNDLE_PATH=\"/opt/jhbuild/lib/webkit2gtk-3.0/injected-bundle\"
+minibrowser: LIBS := $(LIBS) $(DEPS_LIBS)
+binaries += minibrowser
 
 all: $(binaries)
 
@@ -41,6 +45,12 @@ ytplayer-res.c: ytplayer.xml
 
 khanacademy-res.c: khanacademy.xml
 	glib-compile-resources --target=$@ --generate-source $<
+
+mb/BrowserMarshal.c: mb/browser-marshal.list mb/BrowserMarshal.h
+	glib-genmarshal --prefix=browser_marshal $< --body > $@
+
+mb/BrowserMarshal.h: mb/browser-marshal.list
+	glib-genmarshal --prefix=browser_marshal $< --header > $@
 
 clean:
 	rm -rf *.o $(binaries) *-res.c
