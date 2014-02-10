@@ -1,7 +1,7 @@
 EXTRA_WARNINGS := -Wextra -ansi -std=c99 -Wno-unused-parameter
 
-DEPS_LIBS := $(shell pkg-config --libs gtk+-3.0 webkit2gtk-3.0 gstreamer-1.0)
-DEPS_CFLAGS := $(shell pkg-config --cflags gtk+-3.0 webkit2gtk-3.0 gstreamer-1.0)
+DEPS_LIBS := $(shell pkg-config --libs webkit2gtk-3.0)
+DEPS_CFLAGS := $(shell pkg-config --cflags webkit2gtk-3.0)
 
 CFLAGS := -ggdb -Wall $(EXTRA_WARNINGS)
 
