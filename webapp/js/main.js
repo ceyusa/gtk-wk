@@ -202,10 +202,19 @@ Endless.app = Endless.app || {};
 			 */
 			initAppForPlayer = function () {
 				var tag = document.createElement('script'),
-					firstScriptTag = document.getElementsByTagName('script')[0];
+				firstScriptTag = document.getElementsByTagName('script')[0];
 
 				tag.src = "http://www.youtube.com/iframe_api";
 				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+				window.onYouTubePlayerAPIReady = function () {
+				    /* noop */
+				};
+
+			        window.onPlayerReady = function(event) {
+				    event.target.playVideo();
+				}
+
 			},
 
 
@@ -234,7 +243,7 @@ Endless.app = Endless.app || {};
 				$(".lightbox-left-arrow").html("<div class='title-youtube prev'></div>");
 				$(".lightbox-right-arrow").html("<div class='title-youtube next'></div>");
 
-				return '<div class="lightbox-youtube"><p>' + contentTitleVideo + '</p><iframe width="870" height="520" id="video-player" src="http://www.youtube.com/embed/' + contentIdVideo + '?autoplay=1" frameborder="0" allowfullscreen style="visibility:hidden;" onload="this.style.visibility=\'visible\';"></iframe></div>';
+				return '<div class="lightbox-youtube"><p>' + contentTitleVideo + '</p><div id="video-player"></div></div>';
 			},
 
 			/*
@@ -242,22 +251,14 @@ Endless.app = Endless.app || {};
 			 */
 			initPlayer = function () {
 				// Views
-				if (contentIdVideo) addPlayedVideo(contentIdVideo);
-				
-				/*window.onYouTubePlayerAPIReady = function () {
-					player = new YT.Player('video-player', {
-						playerVars: {
-							origin: 1,
-							enablejsapi: 1,
-							autoplay: 1
-						}
-					});
-				};
+				if (window.YT && contentIdVideo) {
+				    addPlayedVideo(contentIdVideo);
 
-				if (window.YT) {
-					onYouTubePlayerAPIReady();
-					player.addEventListener("onStateChange", getPlayerState);
-				}*/
+			            player = new YT.Player('video-player', {
+					videoId: contentIdVideo,
+					events: { 'onReady': onPlayerReady, }
+				    });
+				}
 			},
 
 			/*
@@ -797,6 +798,7 @@ Endless.app = Endless.app || {};
 
 			init: function (json) {
 				loadTranslations();
+				initAppForPlayer();
 				dataJson = json;
 				bindEvents();
 				buildColumns(dataJson);
