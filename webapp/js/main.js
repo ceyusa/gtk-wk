@@ -57,7 +57,6 @@ Endless.app = Endless.app || {};
 
 				lightBox = new pf_js.util.LightBox({
 					callbackContent: initPlayer,
-					// callbackContent: window.videosub_main,
 					source: initLightbox,
 					resize: null,
 					imageResize: true
@@ -237,6 +236,8 @@ Endless.app = Endless.app || {};
 			 * @desc method to open lightbox and attach UI elements
 			 */
 			initLightbox = function (index) {
+			        player = null;
+
 				getVideoDetails(index);
 
 				// Player code
