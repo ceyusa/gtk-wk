@@ -53,4 +53,4 @@ mb/BrowserMarshal.h: mb/browser-marshal.list
 	glib-genmarshal --prefix=browser_marshal $< --header > $@
 
 clean:
-	rm -rf *.o $(binaries) *-res.c
+	rm -rf *.o mb/*.o $(binaries) *-res.c mb/BrowserMarshal.*
