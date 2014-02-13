@@ -37,10 +37,11 @@ Khan = Khan || {};
 	initLightbox = function (index) {
 	    player = null;
 
-	    $(".lightbox-left-arrow").html("<P>PREV</P>");
-	    $(".lightbox-right-arrow").html("<P>NEXT</P>");
+	    $(".lightbox-left-arrow").html("<P>&lt;</P>");
+	    $(".lightbox-right-arrow").html("<P>&gt;</P>");
+	    $(".close-button").html("<P>X</P>");
 	    
-	    return '<div class="lightbox-youtube"><div id="video-player"></div></div>';
+	    return '<div class="lightbox-youtube"><p>' + current + ' / ' + entries.length + '</p><div id="video-player"></div></div>';
 	},
 
 	initPlayer = function () {
