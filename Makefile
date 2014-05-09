@@ -35,7 +35,7 @@ binaries += minibrowser
 all: $(binaries)
 
 $(binaries):
-	$(CC) $(LDFLAGS) $(LIBS) -o $@ $^
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 %.o:: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
