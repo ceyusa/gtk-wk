@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function () {
+    var request1 = new XMLHttpRequest();
+    request1.open('GET', 'sneaky:test1.txt');
+    request1.setRequestHeader('Access-Control-Allow-Origin', '*');
+    request1.addEventListener('load', function () {
+        document.getElementById('test1').innerHTML = request1.responseText;
+    });
+    request1.addEventListener('error', function () {
+        document.getElementById('test1').innerHTML = 'sneaky: error';
+    });
+    request1.send();
+
+    var request2 = new XMLHttpRequest();
+    request2.open('GET', 'sneaky:test2.txt');
+    request2.setRequestHeader('Access-Control-Allow-Origin', '*');
+    request2.addEventListener('load', function () {
+        document.getElementById('test2').innerHTML = request2.responseText;
+    });
+    request2.addEventListener('error', function () {
+        document.getElementById('test2').innerHTML = 'sneaky: error';
+    });
+    request2.send();
+});
+    </script>
+  </script>
+</head>
+<body>
+    <p id="test1"></p>
+    <p id="test2"></p>
+</body>
+</html>

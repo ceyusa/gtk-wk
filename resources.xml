@@ -6,4 +6,7 @@
   <gresource prefix="/org/wkgtk/ytplayer">
     <file>yt-embed.html</file>
   </gresource>
+  <gresource prefix="/org/wkgtk/uri-scheme">
+    <file>uri-scheme.html</file>
+  </gresource>
 </gresources>

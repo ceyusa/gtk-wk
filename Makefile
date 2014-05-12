@@ -32,6 +32,11 @@ minibrowser: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS) -DWEBKIT_INJECTED_BUNDLE_PATH=\"
 minibrowser: LIBS := $(LIBS) $(DEPS_LIBS)
 binaries += minibrowser
 
+uri-scheme: uri-scheme.o resources.o
+uri-scheme: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
+uri-scheme: LIBS := $(LIBS) $(DEPS_LIBS)
+binaries += uri-scheme
+
 all: $(binaries)
 
 $(binaries):
