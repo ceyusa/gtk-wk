@@ -45,7 +45,8 @@ $(binaries):
 %.o:: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-resources.c: resources.xml
+resfiles = $(shell glib-compile-resources --generate-dependencies resources.xml)
+resources.c: resources.xml $(resfiles)
 	glib-compile-resources --target=$@ --generate-source $<
 
 mb/BrowserMarshal.c: mb/browser-marshal.list mb/BrowserMarshal.h
