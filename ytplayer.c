@@ -6,6 +6,13 @@
 GtkWidget *main_window, *web_view;
 char *vidid;
 
+static gboolean
+draw_cb (GtkWidget *widget, gpointer cr, gpointer data)
+{
+	g_print (".");
+	return FALSE;
+}
+
 static void
 create ()
 {
@@ -14,6 +21,7 @@ create ()
 	gtk_window_set_title (GTK_WINDOW (main_window), "YouTube Player");
 
 	g_signal_connect(main_window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+	g_signal_connect(main_window, "draw", G_CALLBACK (draw_cb), NULL);
 
 	web_view = webkit_web_view_new ();
 	gtk_container_add (GTK_CONTAINER (main_window), web_view);
