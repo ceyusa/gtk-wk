@@ -7,7 +7,7 @@ CFLAGS := -ggdb -Wall $(EXTRA_WARNINGS)
 
 all:
 
-yt-player: ytplayer.o ytplayer-res.o
+yt-player: ytplayer.o resources.o
 yt-player: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
 yt-player: LIBS := $(LIBS) $(DEPS_LIBS)
 binaries += yt-player
@@ -17,7 +17,7 @@ facebook: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
 facebook: LIBS := $(LIBS) $(DEPS_LIBS)
 binaries += facebook
 
-khanacademy: khanacademy.o khanacademy-res.o
+khanacademy: khanacademy.o resources.o
 khanacademy: CFLAGS := $(CFLAGS) $(DEPS_CFLAGS)
 khanacademy: LIBS := $(LIBS) $(DEPS_LIBS)
 binaries += khanacademy
@@ -40,10 +40,7 @@ $(binaries):
 %.o:: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-ytplayer-res.c: ytplayer.xml
-	glib-compile-resources --target=$@ --generate-source $<
-
-khanacademy-res.c: khanacademy.xml
+resources.c: resources.xml
 	glib-compile-resources --target=$@ --generate-source $<
 
 mb/BrowserMarshal.c: mb/browser-marshal.list mb/BrowserMarshal.h
