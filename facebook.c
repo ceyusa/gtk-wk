@@ -6,10 +6,18 @@
 GtkWidget *main_window, *web_view;
 
 static gboolean
+reload_webview (gpointer data)
+{
+	webkit_web_view_reload_bypass_cache (data);
+
+	return FALSE;
+}
+
+static gboolean
 crashed (WebKitWebView *view, gpointer data)
 {
 	g_printerr ("The web view has crashed!\n");
-	webkit_web_view_reload_bypass_cache (view);
+	g_timeout_add_seconds (5, reload_webview, view);
 
 	return TRUE; /* don't propagate event */
 }
