@@ -57,7 +57,8 @@ create ()
 	WebKitSettings *settings = webkit_web_view_get_settings (WEBKIT_WEB_VIEW (web_view));
 	g_object_set (G_OBJECT (settings), "enable-fullscreen", TRUE,
 		      "enable-developer-extras", TRUE,
-		      "enable-plugins", FALSE, NULL);
+		      "enable-plugins", FALSE,
+		      "user-agent", "Mozilla/5.0 (X11; Linux i586) AppleWebKit/538.1 (KHTML, like Gecko) Safari/538.1", NULL);
 
 	g_object_connect (G_OBJECT(web_view),
 			  "signal::web-process-crashed", G_CALLBACK (crashed), NULL,
