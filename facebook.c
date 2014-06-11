@@ -42,6 +42,35 @@ failed (WebKitWebView *view, WebKitLoadEvent event, gchar *uri, GError *err, gpo
 	return TRUE; /* don't propagate event */
 }
 
+static gchar*
+get_user_agent (WebKitSettings *settings)
+{
+	gchar *cpu, *tail = NULL, *ua = NULL;
+	g_object_get (G_OBJECT (settings), "user-agent", &ua, NULL);
+	if (ua)
+		tail = strstr (ua, "AppleWebKit");
+
+	if (!tail)
+		tail = "AppleWebKit/538.1 (KHTML, like Gecko) Safari/538.1";
+
+#if defined(__i386__)
+	cpu = "i586";
+#elif defined(__x86_64__)
+	cpu = "x86_64";
+#elif defined(__arm__)
+	cpu = "armv7l";
+#else
+	cpu = "unknown";
+#endif
+
+	gchar *nua = g_strdup_printf ("Mozilla/5.0 (X11; Linux %s) %s", cpu, tail);
+	g_print ("User agent = %s\n", nua);
+
+	g_free (ua);
+
+	return nua;
+}
+
 static void
 create ()
 {
@@ -55,10 +84,12 @@ create ()
 	gtk_container_add (GTK_CONTAINER (main_window), web_view);
 
 	WebKitSettings *settings = webkit_web_view_get_settings (WEBKIT_WEB_VIEW (web_view));
+	gchar *ua = get_user_agent (settings);
 	g_object_set (G_OBJECT (settings), "enable-fullscreen", TRUE,
 		      "enable-developer-extras", TRUE,
 		      "enable-plugins", FALSE,
-		      "user-agent", "Mozilla/5.0 (X11; Linux i586) AppleWebKit/538.1 (KHTML, like Gecko) Safari/538.1", NULL);
+		      "user-agent", ua, NULL);
+	g_free (ua);
 
 	g_object_connect (G_OBJECT(web_view),
 			  "signal::web-process-crashed", G_CALLBACK (crashed), NULL,
